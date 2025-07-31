@@ -1,0 +1,20 @@
+---
+- name: Show switches hostname and ios version
+  hosts: all
+  tasks:
+
+    - name: Gather network facts
+      ios_facts:
+        gather_subset: all
+      register: netconfig
+
+    - name: Assign netconfig to var
+      set_fact:
+        nbrlist: "{{ netconfig.ansible_facts.ansible_net_neighbors | dict2items }}"
+        nbrs: "{{ netconfig.ansible_facts.ansible_net_neighbors.values() }}"
+        interfaces: "{{ netconfig.ansible_facts.ansible_net_neighbors.keys() }}"
+
+    - name: Get CDP neighbors Raw
+      debug:
+        msg: "Interface name: {{ item.key }} Neighbor IP: {{ item.value[0].ip }}"
+      loop: "{{ nbrlist }}"
