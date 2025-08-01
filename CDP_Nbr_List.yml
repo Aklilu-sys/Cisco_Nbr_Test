@@ -1,9 +1,16 @@
 ---
 - name: Show switches hostname and ios version
   hosts: all
+  vars_prompt:
+    - name: username
+      prompt: "Enter your username"
+      private: false # Set to true to hide input (for passwords)
+
+    - name: password
+      prompt: "Enter your password"
+      private: true # Hides the input as it's typed
 
   tasks:
-
     - name: Gather network facts
       ios_facts:
         gather_subset: all
