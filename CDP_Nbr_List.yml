@@ -1,13 +1,6 @@
 ---
 - name: Show switches hostname and ios version
   hosts: all
-  vars_prompt:
-    - name: IOS_User_Prompt
-      prompt: "Enter Cisco IOS Username"
-      private: no
-    - name: IOS_Password_Prompt
-      prompt: "Enter IOS Password"
-      private: yes
 
   tasks:
 
